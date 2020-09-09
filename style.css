@@ -1,0 +1,107 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+h1.title {
+  margin: 60px;
+}
+
+body {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+#main {
+  display: flex;
+}
+
+.container {
+  width: 50vw;
+  height: 100vh;
+  background-color: #aadaff;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: repeat(33, minmax(1.5vw, 1.5vw));
+  grid-template-rows: repeat(32, minmax(3vh, 3vh));
+  justify-items: start;
+}
+
+.clickzone {
+  position: relative;
+  grid-column: 1/34;
+  grid-row: 1/34;
+  height: 100vh;
+  cursor: pointer;
+  width: 50vw;
+}
+
+.map {
+  grid-column: 1/17;
+  grid-row: 1/17;
+  height: 100vh;
+  width: 50vw;
+}
+
+.dashboard {
+  margin-left: 40px;
+  width: 400px;
+}
+
+.refugee-boat {
+  width: 6px;
+  height: 13px;
+  background: url("/img/refugee-boat.png") center no-repeat;
+}
+
+.distress-call {
+  border: 2px solid red;
+  padding: 30px;
+  border-radius: 60%;
+}
+
+.ports {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  background: url("/img/port.png") center no-repeat;
+}
+
+#lampedusa-port {
+  grid-column: 6;
+  grid-row: 14;
+}
+
+#malta-port {
+  grid-column: 12;
+  grid-row: 13;
+}
+
+#pozzallo-port {
+  grid-column: 14;
+  grid-row: 12;
+}
+
+#messina-port {
+  grid-column: 15;
+  grid-row: 11;
+}
+
+#crotone-port {
+  grid-column: 19;
+  grid-row: 10;
+}
+
+#taranto-port {
+  grid-column: 21;
+  grid-row: 9;
+}
+
+.main-boat {
+  width: 10px;
+  height: 46px;
+  background: url("/img/viking.png") center no-repeat;
+}
