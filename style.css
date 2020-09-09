@@ -11,6 +11,14 @@ body {
   justify-content: center;
 }
 
+.mobile-description {
+  display: none;
+}
+
+.display-mobile{
+  display: none;
+}
+
 h1 {
   font-family: "Ubuntu", sans-serif;
   font-size: 60px;
@@ -26,7 +34,7 @@ h1 {
 h2 {
   font-family: "Ubuntu", sans-serif;
   font-size: 30px;
-  margin: 20px 0px 20px;
+  margin-bottom: 20px;
 }
 
 #main {
@@ -35,16 +43,16 @@ h2 {
 
 section.left {
   grid-column: 1;
-  grid-row: 1/2;
-  max-width: 25vw;
+  grid-row: 1;
+  max-width: 30vw;
 }
 section.middle {
   grid-column: 2;
-  grid-row: 1/2;
+  grid-row: 1/4;
 }
-section#right {
-  grid-column: 3;
-  grid-row: 1;
+section #right {
+  grid-column: 1;
+  grid-row: 2/4;
 }
 
 .container {
@@ -67,7 +75,7 @@ section#right {
 
 .launch {
   color: white;
-  background-color: #0D355A;
+  background-color: #0d355a;
   grid-column: 15;
   grid-row: 16;
   width: 10vw;
@@ -135,7 +143,6 @@ section#right {
 }
 
 .dashboard {
-  margin-left: 40px;
   padding: 20px;
 }
 
@@ -192,4 +199,61 @@ section#right {
   width: 10px;
   height: 46px;
   background: url("./img/viking.png") center no-repeat;
+}
+
+@media (max-width: 1200px) {
+  h1 {
+    font-size: 60px;
+  }
+  section.left {
+    max-width: 40vw;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 30px;
+  }
+  section.left {
+    max-width: 40vw;
+  }
+}
+
+@media (max-width: 425px) {
+  .clickzone {
+    width: 100vw;
+  }
+  .container {
+    width: 100vw;
+  }
+  .map {
+    width: 100vw;
+  }
+  section.left {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  section.middle {
+    grid-column: 1;
+  }
+
+  h1 {
+    font-size: 40px;
+    position: relative;
+    padding: 12px;
+    width: 100vw;
+    text-align: center;
+    background-color: #0d355a;
+    color: white;
+    margin-top: 0px;
+  }
+  .left p {
+    display: none;
+  }
+
+  .display-mobile{
+    visibility:visible;
+  }
+  
 }

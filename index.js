@@ -24,6 +24,7 @@ import { Mainboat } from "./main-boat.js";
     clickZone.style.cursor = "pointer";
 
     const div = document.createElement("div");
+    div.className = "dashboard";
     div.innerHTML += ` <h2>Dashboard</h2>
     <div>Lands : <span id="landing-number">0</span></div>
     <div>Current : <span id="saving-number">0</span></div>
@@ -79,13 +80,13 @@ import { Mainboat } from "./main-boat.js";
 
   function generateRefugees() {
     let randomRefugeesNb = getRndInteger(10, 100);
-    let randomColumn = getRndInteger(6, 33);
+    let randomColumn = getRndInteger(7, 33);
 
     //totalRefugees -= randomRefugeesNb;
 
     const refugee = new Refugees({
       nbRefugees: randomRefugeesNb,
-      gridRow: 32,
+      gridRow: 30,
       gridColumn: randomColumn,
     });
     displayRefugees(refugee);
@@ -253,6 +254,7 @@ import { Mainboat } from "./main-boat.js";
         ) {
           landRefugees(refugeesArray[i], ports[j]);
           refugeesArray.splice(refugeesArray[i], 1);
+      //    console.log("hit");
         }
       }
     }
