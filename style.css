@@ -84,7 +84,7 @@ section.right {
 .refugee-boat {
   width: 6px;
   height: 13px;
-  background: url("/img/refugee-boat.png") center no-repeat;
+  background: url("./img/refugee-boat.png") center no-repeat;
 }
 
 .distress-call {
@@ -97,7 +97,7 @@ section.right {
   position: relative;
   width: 14px;
   height: 14px;
-  background: url("/img/port.png") center no-repeat;
+  background: url("./img/port.png") center no-repeat;
 }
 
 #lampedusa-port {
@@ -133,5 +133,5 @@ section.right {
 .main-boat {
   width: 10px;
   height: 46px;
-  background: url("/img/viking.png") center no-repeat;
+  background: url("./img/viking.png") center no-repeat;
 }
