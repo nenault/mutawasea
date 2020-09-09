@@ -27,6 +27,7 @@ function generateMainBoat() {
 
   mutawasea.addEventListener("click", function (event) {
     let getBoat = document.querySelector(".main-boat");
+    let isFirstClick = "true"
 
     var xPosition =
       event.clientX -
@@ -255,14 +256,11 @@ const intervalEvent = setInterval(() => {
 let deathAll = 0;
 function randomPeril(boat) {
   let randomNb = Math.random();
-  if (randomNb < 0.5) {
+  if (randomNb < 0.02) {
     boat.newBoat.style.transition = "all 50s";
     boat.newBoat.style.transform = `translate(${0}px, ${0}px)`;
     boat.newBoat.style.transform += "rotate(360deg)";
-    boat.newBoat.classList.add("distress-call");
-
-
-   console.log(boat.newBoat);
+   // boat.newBoat.classList.add("distress-call");
 
     const timeOutSink = setTimeout(() => {
       (function () {

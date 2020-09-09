@@ -20,14 +20,18 @@ export class Mainboat {
 
     if (yPosition < mainBoat.getBoundingClientRect().top) {
       mainBoat.style.transition = "all 1s";
+      
       mainBoat.style.gridColumn = "1";
       mainBoat.style.gridRow = "1";
+      
       mainBoat.style.transform = `translate(${xPosition}px, ${yPosition + (mainBoat.getBoundingClientRect().height)*2}px)`;
       mainBoat.style.transform += "rotate(180deg)";
     } else {
       mainBoat.style.transition = "all 1s";
+      
       mainBoat.style.gridColumn = "1";
       mainBoat.style.gridRow = "1";
+      
       mainBoat.style.transform = `translate(${xPosition}px, ${yPosition + mainBoat.getBoundingClientRect().height}px)`;
     }
   }

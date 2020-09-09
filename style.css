@@ -5,18 +5,48 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 
-h1.title {
-  margin: 60px;
-}
-
 body {
   width: 100vw;
   display: flex;
   justify-content: center;
 }
 
+h1 {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 60px;
+  margin-right: 20px;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.left p {
+  padding: 20px;
+}
+
+h2 {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 30px;
+  margin: 20px 0px 20px;
+}
+
+
+
 #main {
-  display: flex;
+  display: grid;
+}
+
+section.left {
+  grid-column: 1;
+  grid-row: 1/2;
+  max-width:25vw;
+}
+section.middle {
+  grid-column: 2;
+  grid-row: 1/2;
+}
+section.right {
+  grid-column: 3;
+  grid-row: 1;
 }
 
 .container {
@@ -48,7 +78,7 @@ body {
 
 .dashboard {
   margin-left: 40px;
-  width: 400px;
+  padding: 20px;
 }
 
 .refugee-boat {
