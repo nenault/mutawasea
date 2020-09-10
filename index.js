@@ -9,6 +9,7 @@ import { Mainboat } from "./main-boat.js";
   let ports = document.getElementsByClassName("ports");
   let destinations = document.querySelectorAll(".greenDot");
   let rightZone = document.getElementById("right");
+  let consoleLog = document.getElementById("console-log");
 
   let totalRefugees = 11471;
   let isPortsClosed = "false";
@@ -21,7 +22,27 @@ import { Mainboat } from "./main-boat.js";
     detectBoatToRefugees();
     detectRefugeesToPort();
 
+    /*
+    const intervalMessage = setInterval(() => {
+      messages.innerHTML = "";
+    }, 6000);
+    */
+
+    const alertPort = document.createElement("div");
+    alertPort.className = "alert";
+    mutawasea.appendChild(alertPort);
+
     clickZone.style.cursor = "pointer";
+
+    const div = document.createElement("div");
+    div.className = "console";
+    div.innerHTML += `
+    <span id="saving-number">0 on board</span>
+    <span id="death-number">0 drowned</span>
+    <span id="saved-number">0 rescued</span>`;
+    consoleLog.appendChild(div);
+
+    /*
 
     const div = document.createElement("div");
     div.className = "dashboard";
@@ -30,20 +51,30 @@ import { Mainboat } from "./main-boat.js";
     <div>Current : <span id="saving-number">0</span></div>
     <div>Death : <span id="death-number">0</span></div>
     <div>Saved : <span id="saved-number">0</span></div>
-    <div>Ports status : <span id="ports-status">Open</span></div>`;
+    <div><span id="messages"></span></div>`;
     rightZone.appendChild(div);
+
+    */
 
     const intervalclose = setInterval(() => {
       let portStatus = document.getElementById("ports-status");
       let randomNb = Math.random();
+      let portsArr = [...ports];
       if (randomNb < 0.4) {
         isPortsClosed = "true";
-        portStatus.innerHTML = "Closed";
+        alertPort.innerHTML = `Ports are closed to boats carrying migrants until further notice.`;
+        portsArr.forEach((port) => {
+          port.style.background =
+            "url('./img/refugee-boat.png') center no-repeat";
+        });
       } else {
         isPortsClosed = "false";
-        portStatus.innerHTML = "Open";
+        alertPort.innerHTML = `Ports are open, you can dock there safely.`;
+        portsArr.forEach((port) => {
+          port.style.background = "url('./img/port.png') center no-repeat";
+        });
       }
-    }, 2000);
+    }, 6000);
   });
 
   function getRndInteger(min, max) {
@@ -82,7 +113,7 @@ import { Mainboat } from "./main-boat.js";
     let randomRefugeesNb = getRndInteger(10, 100);
     let randomColumn = getRndInteger(7, 33);
 
-    //totalRefugees -= randomRefugeesNb;
+    totalRefugees -= randomRefugeesNb;
 
     const refugee = new Refugees({
       nbRefugees: randomRefugeesNb,
@@ -176,13 +207,20 @@ import { Mainboat } from "./main-boat.js";
   }
 
   function boatCapacity(getBoat, refugeesBoat) {
+    let savingNumber = document.getElementById("saving-number");
+    const alertCapacity = document.createElement("div");
+    alertCapacity.className = "alert-capacity";
+    mutawasea.appendChild(alertCapacity);
     if (saveAll < 250) {
       saveRefugees(getBoat, refugeesBoat);
+      savingNumber.style.color = "white";
     } else if (saveAll > 250 && saveAll < 350) {
       saveRefugees(getBoat, refugeesBoat);
-      console.log("warning capacity over 250");
+      savingNumber.style.color = "orange";
+      alertCapacity.innerHTML = `Warning, you have exceeded the capacity of the boat, you can continue or go back to a safe harbor.`;
     } else {
-      console.log("too much");
+      savingNumber.style.color = "red";
+      alertCapacity.innerHTML = `There is no room at all on board, you should really find a safe harbor.`;
     }
   }
 
@@ -211,7 +249,7 @@ import { Mainboat } from "./main-boat.js";
 
   function countAllSavings() {
     let savingNumber = document.getElementById("saving-number");
-    savingNumber.innerHTML = `${saveAll}`;
+    savingNumber.innerHTML = `${saveAll} on board`;
   }
 
   function disembarkRefugees(a, b) {
@@ -223,14 +261,14 @@ import { Mainboat } from "./main-boat.js";
     validateSave();
     saveAll = 0;
     let savingNumber = document.getElementById("saving-number");
-    savingNumber.innerHTML = `${saveAll}`;
+    savingNumber.innerHTML = `${saveAll} on board`;
   }
 
   let savedTotal = 0;
   function validateSave() {
     savedTotal += saveAll;
     let savedNumber = document.getElementById("saved-number");
-    savedNumber.innerHTML = `${savedTotal}`;
+    savedNumber.innerHTML = `${savedTotal} rescued`;
   }
 
   function detectRefugeesToPort() {
@@ -254,7 +292,6 @@ import { Mainboat } from "./main-boat.js";
         ) {
           landRefugees(refugeesArray[i], ports[j]);
           refugeesArray.splice(refugeesArray[i], 1);
-      //    console.log("hit");
         }
       }
     }
@@ -278,7 +315,7 @@ import { Mainboat } from "./main-boat.js";
 
   function countAllLandings() {
     let landingNumber = document.getElementById("landing-number");
-    landingNumber.innerHTML = `${landingAll}`;
+    // landingNumber.innerHTML = `${landingAll}`;
   }
 
   const intervalEvent = setInterval(() => {
@@ -313,6 +350,6 @@ import { Mainboat } from "./main-boat.js";
 
   function countAllDeath() {
     let deathNumber = document.getElementById("death-number");
-    deathNumber.innerHTML = `${deathAll}`;
+    deathNumber.innerHTML = `${deathAll} drowned`;
   }
 })();

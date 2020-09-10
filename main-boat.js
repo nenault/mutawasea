@@ -28,7 +28,7 @@ export class Mainboat {
 
       mainBoat.style.gridColumn = "1";
       mainBoat.style.gridRow = "1";
-
+      
       mainBoat.style.transform = `translate(${xPosition}px, ${
         yPosition + mainBoat.getBoundingClientRect().height * 2
       }px)`;
