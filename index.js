@@ -1,25 +1,30 @@
+/** 
+
+ * @projectname Mutawasea
+ * @version 0.1
+ * @author Nicolas Enault
+ * @copyright 2020
+ * 
+ */
+
 import { Refugees } from "./refugees.js";
 import { Mainboat } from "./main-boat.js";
 
-
 /**
  * IIFE function
- * @author Nicolas Enault <nicolas.enault@gmail.com>
  */
+
 (function () {
   let mutawasea = document.querySelector(".container");
-  let map = document.querySelector(".map");
   let clickZone = document.querySelector(".clickzone");
-  let refugeesBoats = document.getElementsByClassName("refugee-boat");
   let ports = document.getElementsByClassName("ports");
-  let destinations = document.querySelectorAll(".greenDot");
-  let rightZone = document.getElementById("right");
   let consoleLog = document.getElementById("console-log");
-
-  let totalRefugees = 11471;
   let isPortsClosed = "false";
-
   let launchSimulation = document.querySelector(".launch");
+
+  /**
+   * Launches simulation and collision detection functions
+   */
   launchSimulation.addEventListener("click", () => {
     launchSimulation.remove();
     startsGame();
@@ -27,17 +32,21 @@ import { Mainboat } from "./main-boat.js";
     detectBoatToRefugees();
     detectRefugeesToPort();
 
+    // Clears alert message for opening or closing ports
     const intervalAlert = setInterval(() => {
       alertPort.innerHTML = ">>>";
     }, 4000);
 
+    // Creates div that contains the port alert message
     const alertPort = document.createElement("div");
     alertPort.className = "alert";
     alertPort.innerHTML = ">>>";
     mutawasea.appendChild(alertPort);
 
+    // Cursor on the click zone
     clickZone.style.cursor = "pointer";
 
+    // Creates div that contains refugee data
     const div = document.createElement("div");
     div.className = "console";
     div.innerHTML += `
@@ -46,8 +55,8 @@ import { Mainboat } from "./main-boat.js";
     <span id="saved-number">0 rescued</span>`;
     consoleLog.appendChild(div);
 
+    // Manages random closing or opening of ports every six seconds
     const intervalclose = setInterval(() => {
-      let portStatus = document.getElementById("ports-status");
       let randomNb = Math.random();
       let portsArr = [...ports];
       if (randomNb < 0.4) {
@@ -67,10 +76,18 @@ import { Mainboat } from "./main-boat.js";
     }, 6000);
   });
 
+  /**
+   * Generates a random integer
+   * @param min - Minimum integer from which to start
+   * @param max - Maximum integer from which to stop
+   */
   function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
+  /**
+   * Creates a new instance of the Mainboat class
+   */
   function generateMainBoat() {
     const mainBoat = new Mainboat({
       nbRefugees: 0,
@@ -78,9 +95,14 @@ import { Mainboat } from "./main-boat.js";
       gridColumn: 20,
     });
 
+    // Creates main boat object
     const newMainBoat = mainBoat.boatShape();
     mutawasea.appendChild(newMainBoat);
 
+    /**
+     * Detects position of the user's mouse on click and invokes function to move the boat
+     * @param event - Mouse event on click
+     */
     mutawasea.addEventListener("click", function (event) {
       let getBoat = document.querySelector(".main-boat");
 
@@ -97,13 +119,15 @@ import { Mainboat } from "./main-boat.js";
     });
   }
 
+  // Empty array who will receive new refugee boat instances
   let refugeesArray = [];
 
+  /**
+   * Generates instances of Refugees class, with a random number of refugees and random positions
+   */
   function generateRefugees() {
     let randomRefugeesNb = getRndInteger(10, 100);
     let randomColumn = getRndInteger(7, 33);
-
-    totalRefugees -= randomRefugeesNb;
 
     const refugee = new Refugees({
       nbRefugees: randomRefugeesNb,
@@ -113,6 +137,10 @@ import { Mainboat } from "./main-boat.js";
     displayRefugees(refugee);
   }
 
+  /**
+   * Creates refugee boat object, creates an object that contains refugee Boat instance and HTML element and inserts them into  refugee boat array. Generates a random direction for this boat
+   * @param refugee - An instance of the class Refugees
+   */
   function displayRefugees(refugee) {
     const newBoat = refugee.boatShape();
     mutawasea.appendChild(newBoat);
@@ -121,6 +149,9 @@ import { Mainboat } from "./main-boat.js";
     refugee.sail(newBoat, randomDestination);
   }
 
+  /**
+   * Invokes function that generates main boat, generates boats of refugees every three seconds, up to 750 deaths
+   */
   function startsGame() {
     generateMainBoat();
     const intervalRefugees = setInterval(() => {
@@ -133,6 +164,7 @@ import { Mainboat } from "./main-boat.js";
     }, 3000);
   }
 
+  // Declares necessary variables for collision detection
   let getBoatW,
     getBoatH,
     getBoatX,
@@ -146,6 +178,9 @@ import { Mainboat } from "./main-boat.js";
     portX,
     portY;
 
+  /**
+   * Function to detect collisions between main boat and one of the ports. Invokes disembarkRefugees function in case of collision, if port is open
+   */
   function detectBoatToPort() {
     let getBoat = document.querySelector(".main-boat");
 
@@ -173,6 +208,9 @@ import { Mainboat } from "./main-boat.js";
     window.requestAnimationFrame(detectBoatToPort);
   }
 
+  /**
+   * Function to detect collisions between  main boat and a refugee boat. Invokes the boat capaciy function in case of collision
+   */
   function detectBoatToRefugees() {
     let getBoat = document.querySelector(".main-boat");
 
@@ -199,15 +237,23 @@ import { Mainboat } from "./main-boat.js";
     window.requestAnimationFrame(detectBoatToRefugees);
   }
 
+  /**
+   * Invokes saveRefugees function if number of refugees on board in main boat is less than 350. Displays alert messages to warn user when boat exceeds its initial capacity and when it can no longer take new people
+   * @param getBoat - HTML element which is the main boat
+   * @param refugeesBoat - Object that contains  HTML element that is the refugees boat and the instance of Refugees class that contains metadatas of this boat
+   */
   function boatCapacity(getBoat, refugeesBoat) {
     console.log(refugeesBoat.refugee.nbRefugees);
-    //console.log(getBoat);
+    // console.log(refugeesBoat);
     //let boatArr = [...refugeesBoat.refugee.nbRefugees];
     //console.log(boatArr);
 
-    let savingNumber = document.getElementById("saving-number");
+    // Creates a div that contains alert messages about capacity of main boat
     const alertCapacity = document.createElement("div");
     alertCapacity.className = "alert-capacity";
+    const intervalAlertCapacity = setInterval(() => {
+      alertCapacity.innerHTML = "";
+    }, 3000);
     mutawasea.appendChild(alertCapacity);
     if (saveAll < 250) {
       saveRefugees(getBoat, refugeesBoat);
@@ -219,37 +265,52 @@ import { Mainboat } from "./main-boat.js";
     }
   }
 
-  function saveRefugees(a, b) {
-    countSave(b.refugee.nbRefugees);
+  /**
+   * Invokes countSave function and delete refugee boat that has come into contact with main boat
+   * @param mainBoat - Main boat html element
+   * @param boat - Object that contains HTML element that is the refugees boat and the instance of Refugees class that contains metadatas of this boat
+   */
+  function saveRefugees(mainBoat, boat) {
+    countSave(boat.refugee.nbRefugees);
 
-    const timeOutSave = setTimeout(() => {
-      b.newBoat.remove();
-      b.refugee.nbRefugees = 0;
-    }, 1000);
+    boat.newBoat.remove();
+    boat.refugee.nbRefugees = 0;
 
-    a.style.transition = "all 600s";
-    a.style.transform = `translate(${0}px, ${0}px)`;
+    mainBoat.style.transition = "all 100s";
+    mainBoat.style.transform = `translate(${0}px, ${0}px)`;
 
-    b.newBoat.style.transition = "all 600s";
-    b.newBoat.style.transform = `translate(${0}px, ${0}px)`;
+    boat.newBoat.style.transition = "all 600s";
+    boat.newBoat.style.transform = `translate(${0}px, ${0}px)`;
   }
 
   let saveAll = 0;
+  /**
+   * Adds the number of refugees rescued by the main boat
+   * @param count - Number of refugees in the refugee boat which came into contact with main boat
+   */
   function countSave(count) {
     saveAll += count;
     countAllSavings();
   }
 
+  /**
+   * Display number of refugees in main boat in HTML
+   */
   function countAllSavings() {
     let savingNumber = document.getElementById("saving-number");
     savingNumber.innerHTML = `${saveAll} on board`;
   }
 
-  function disembarkRefugees(a, b) {
-    a.style.transform = `translate(${
-      b.getBoundingClientRect().left - mutawasea.getBoundingClientRect().left
-    }px, ${b.getBoundingClientRect().top + 20}px)`;
-    a.style.transform += "rotate(180deg)";
+  /**
+   * Drops refugees at the port and empties main boat
+   * @param mainBoat - Main boat html element
+   * @param port - One of port HTML element
+   */
+  function disembarkRefugees(mainBoat, port) {
+    mainBoat.style.transform = `translate(${
+      port.getBoundingClientRect().left - mutawasea.getBoundingClientRect().left
+    }px, ${port.getBoundingClientRect().top + 20}px)`;
+    mainBoat.style.transform += "rotate(180deg)";
 
     validateSave();
     saveAll = 0;
@@ -258,12 +319,18 @@ import { Mainboat } from "./main-boat.js";
   }
 
   let savedTotal = 0;
+  /**
+   * Adds number of refugees that have just been rescued to total number of refugees rescued and display it in HTML
+   */
   function validateSave() {
     savedTotal += saveAll;
     let savedNumber = document.getElementById("saved-number");
     savedNumber.innerHTML = `${savedTotal} rescued`;
   }
 
+  /**
+   * Function to detect collisions between between refugee boats and ports. Invokes landRefugees function in case of collision
+   */
   function detectRefugeesToPort() {
     for (let i = 0; i < refugeesArray.length; i++) {
       for (let j = 0; j < ports.length; j++) {
@@ -283,7 +350,7 @@ import { Mainboat } from "./main-boat.js";
           refugeesBoatsY + refugeesBoatsH > portY &&
           refugeesBoatsY < portY + portH
         ) {
-          landRefugees(refugeesArray[i], ports[j]);
+          landRefugees(refugeesArray[i]);
           refugeesArray.splice(refugeesArray[i], 1);
         }
       }
@@ -291,26 +358,19 @@ import { Mainboat } from "./main-boat.js";
     window.requestAnimationFrame(detectRefugeesToPort);
   }
 
-  function landRefugees(a, b) {
-    countLanding(a.refugee.nbRefugees);
-    a.newBoat.style.transition = "all 500s";
-    a.newBoat.style.transform = `translate(${0}px, ${0}px)`;
+  /**
+   * Delete refugee boats that reach a port
+   * @param boat - Object that contains HTML element that is the refugees boat and the instance of Refugees class that contains metadatas of this boat
+   */
+  function landRefugees(boat) {
+    boat.newBoat.style.transition = "all 500s";
+    boat.newBoat.style.transform = `translate(${0}px, ${0}px)`;
     const intervalPort = setInterval(() => {
-      a.newBoat.remove();
+      boat.newBoat.remove();
     }, 1000);
   }
 
-  let landingAll = 0;
-  function countLanding(count) {
-    landingAll += count;
-    //countAllLandings();
-  }
-
-  function countAllLandings() {
-    let landingNumber = document.getElementById("landing-number");
-    // landingNumber.innerHTML = `${landingAll}`;
-  }
-
+  // Invokes function that will generate perils for refugee boats, every two seconds
   const intervalEvent = setInterval(() => {
     refugeesArray.forEach((boat) => {
       randomPeril(boat);
@@ -318,40 +378,54 @@ import { Mainboat } from "./main-boat.js";
   }, 2000);
 
   let deathAll = 0;
+  /**
+   * Generates random perils for refugee boats
+   * @param boat - Object that contains HTML element that is the refugees boat and the instance of Refugees class that contains metadatas of this boat
+   */
   function randomPeril(boat) {
     let randomNb = Math.random();
-    //if (randomNb < 0.02) {
-      if (randomNb < 0.6) {
-  
+
+    if (randomNb < 0.02) {
+      // if (randomNb < 0.6) {
       boat.newBoat.style.transition = "all 50s";
       boat.newBoat.style.transform = `translate(${0}px, ${0}px)`;
       boat.newBoat.classList.add("flicker-1");
-     
+
+      // Invokes function that will count number of dead and remove HTML element if main boat does not make contact with refugee boat within ten seconds
       const timeOutSink = setTimeout(() => {
         (function () {
           countDeath(boat.refugee.nbRefugees);
         })();
         boat.refugee.nbRefugees = 0;
         boat.newBoat.remove();
-      }, 100000);
+      }, 10000);
     }
   }
-
+  /**
+   * Increments total number of deaths with number of deaths just recorded
+   * @param a - Number of deaths just recorded
+   */
   function countDeath(count) {
     deathAll += count;
     countAllDeath();
   }
 
+  /**
+   * Display the total number of deaths in HTML
+   */
   function countAllDeath() {
     let deathNumber = document.getElementById("death-number");
     deathNumber.innerHTML = `${deathAll} drowned`;
   }
 
+  /**
+   * When the number of deaths exceeds 750, this function is invoked and displays  div that contains final text.
+   */
   function endSimulation() {
     const endText = document.createElement("div");
     endText.className = "end-text";
     endText.innerHTML += `<h2 id="title-end">Simulation is over</h2>
-    <p class="endPara">750 people died. This is the number of people who have drowned in the central Mediterranean since the beginning of 2020, if only those who were trying to reach Italy are counted. Since 2014, nearly 20,000 people have died in these conditions, according to the UNHCR, throughout the Mediterranean Sea.
+    <p class="endPara"><b>750 people died</b>. This is the number of people who have drowned in the central Mediterranean since the beginning of 2020, if only those who were trying to reach Italy are counted. Since 2014, nearly 20,000 people have died in these conditions, according to the UNHCR, throughout the Mediterranean Sea.
     <br /><br />This is the world's most deadly migration route.<br/ ><br />You should check <a href="https://www.sosmediterranee.org/" target="_blank">SOS MEDITERRANEE's</a> website.<br />#refugeeswelcome
     </p>`;
     mutawasea.appendChild(endText);

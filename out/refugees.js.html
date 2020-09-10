@@ -1,4 +1,32 @@
-// Refugees boat
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: refugees.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: refugees.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Refugees boat
 export class Refugees {
   /**
    * Constructor of Refugees class
@@ -52,7 +80,7 @@ export class Refugees {
           lampedusaPort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -61,7 +89,7 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     } else if (randomDestination === 2) {
@@ -79,7 +107,7 @@ export class Refugees {
           maltaPort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -88,7 +116,7 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     } else if (randomDestination === 3) {
@@ -106,7 +134,7 @@ export class Refugees {
           pozzalloPort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -115,7 +143,7 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     } else if (randomDestination === 4) {
@@ -133,7 +161,7 @@ export class Refugees {
           messinaPort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -142,7 +170,7 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     } else if (randomDestination === 5) {
@@ -160,7 +188,7 @@ export class Refugees {
           crotonePort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -169,7 +197,7 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     } else {
@@ -187,7 +215,7 @@ export class Refugees {
           tarantoPort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -196,9 +224,32 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "100S";
+        newBoat.style.transitionDuration = "10S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     }
   }
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Refugees_Refugees.html">Refugees</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Sep 11 2020 00:18:23 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

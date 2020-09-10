@@ -144,20 +144,10 @@ section.middle {
   position: relative;
 }
 
-#relaunch-btn {
-  margin-top: 20px;
-  background-color: #0d355a;
-  color: white;
-  width: 204px;
-  font-size: 20px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.btn span {
+.launch span {
   transition: all 0.3s;
 }
-.btn::before {
+.launch::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -175,14 +165,14 @@ section.middle {
   border-bottom-color: rgba(255, 255, 255, 0.5);
   transform: scale(0.1, 1);
 }
-.btn:hover span {
+.launch:hover span {
   letter-spacing: 2px;
 }
-.btn:hover::before {
+.launch:hover::before {
   opacity: 1;
   transform: scale(1, 1);
 }
-.btn::after {
+.launch::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -193,7 +183,7 @@ section.middle {
   transition: all 0.3s;
   background-color: rgba(255, 255, 255, 0.1);
 }
-.btn:hover::after {
+.launch:hover::after {
   opacity: 0;
   transform: scale(0.1, 1);
 }
