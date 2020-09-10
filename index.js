@@ -22,14 +22,13 @@ import { Mainboat } from "./main-boat.js";
     detectBoatToRefugees();
     detectRefugeesToPort();
 
-    /*
-    const intervalMessage = setInterval(() => {
-      messages.innerHTML = "";
-    }, 6000);
-    */
+    const intervalAlert = setInterval(() => {
+      alertPort.innerHTML = ">>>";
+    }, 4000);
 
     const alertPort = document.createElement("div");
     alertPort.className = "alert";
+    alertPort.innerHTML = ">>>";
     mutawasea.appendChild(alertPort);
 
     clickZone.style.cursor = "pointer";
@@ -42,34 +41,20 @@ import { Mainboat } from "./main-boat.js";
     <span id="saved-number">0 rescued</span>`;
     consoleLog.appendChild(div);
 
-    /*
-
-    const div = document.createElement("div");
-    div.className = "dashboard";
-    div.innerHTML += ` <h2>Dashboard</h2>
-    <div>Lands : <span id="landing-number">0</span></div>
-    <div>Current : <span id="saving-number">0</span></div>
-    <div>Death : <span id="death-number">0</span></div>
-    <div>Saved : <span id="saved-number">0</span></div>
-    <div><span id="messages"></span></div>`;
-    rightZone.appendChild(div);
-
-    */
-
     const intervalclose = setInterval(() => {
       let portStatus = document.getElementById("ports-status");
       let randomNb = Math.random();
       let portsArr = [...ports];
       if (randomNb < 0.4) {
         isPortsClosed = "true";
-        alertPort.innerHTML = `Ports are closed to boats carrying migrants until further notice.`;
+        alertPort.innerHTML = `>>> Ports are closed to boats carrying refugees until further notice...`;
         portsArr.forEach((port) => {
           port.style.background =
             "url('./img/refugee-boat.png') center no-repeat";
         });
       } else {
         isPortsClosed = "false";
-        alertPort.innerHTML = `Ports are open, you can dock there safely.`;
+        alertPort.innerHTML = `>>> Ports are open, you can dock there safely   `;
         portsArr.forEach((port) => {
           port.style.background = "url('./img/port.png') center no-repeat";
         });
@@ -134,7 +119,12 @@ import { Mainboat } from "./main-boat.js";
   function startsGame() {
     generateMainBoat();
     const intervalRefugees = setInterval(() => {
-      generateRefugees();
+      if (deathAll >= 400) {
+        clearInterval(intervalRefugees);
+        endSimulation();
+      } else {
+        generateRefugees();
+      }
     }, 3000);
   }
 
@@ -207,6 +197,11 @@ import { Mainboat } from "./main-boat.js";
   }
 
   function boatCapacity(getBoat, refugeesBoat) {
+    //console.log(refugeesBoat.refugee.nbRefugees);
+    //console.log(getBoat);
+    //let boatArr = [...refugeesBoat.refugee.nbRefugees];
+    //console.log(boatArr);
+
     let savingNumber = document.getElementById("saving-number");
     const alertCapacity = document.createElement("div");
     alertCapacity.className = "alert-capacity";
@@ -217,25 +212,25 @@ import { Mainboat } from "./main-boat.js";
     } else if (saveAll > 250 && saveAll < 350) {
       saveRefugees(getBoat, refugeesBoat);
       savingNumber.style.color = "orange";
-      alertCapacity.innerHTML = `Warning, you have exceeded the capacity of the boat, you can continue or go back to a safe harbor.`;
+      alertCapacity.innerHTML = `>>> Warning, you have exceeded the capacity of the boat, you can continue or go back to a safe harbor.`;
     } else {
       savingNumber.style.color = "red";
-      alertCapacity.innerHTML = `There is no room at all on board, you should really find a safe harbor.`;
+      alertCapacity.innerHTML = `>>> There is no room at all on board, you should really find a safe harbor.`;
     }
   }
 
   function saveRefugees(a, b) {
     countSave(b.refugee.nbRefugees);
+    let savingNumber = document.getElementById("saving-number");
+    savingNumber.style.color = "white";
 
     const timeOutSave = setTimeout(() => {
       b.newBoat.remove();
       b.refugee.nbRefugees = 0;
     }, 1000);
 
-    a.style.transform = `translate(${
-      b.newBoat.getBoundingClientRect().left -
-      mutawasea.getBoundingClientRect().left
-    }px, ${b.newBoat.getBoundingClientRect().top - 40}px)`;
+    a.style.transition = "all 600s";
+    a.style.transform = `translate(${0}px, ${0}px)`;
 
     b.newBoat.style.transition = "all 600s";
     b.newBoat.style.transform = `translate(${0}px, ${0}px)`;
@@ -310,7 +305,7 @@ import { Mainboat } from "./main-boat.js";
   let landingAll = 0;
   function countLanding(count) {
     landingAll += count;
-    countAllLandings();
+    //countAllLandings();
   }
 
   function countAllLandings() {
@@ -327,11 +322,12 @@ import { Mainboat } from "./main-boat.js";
   let deathAll = 0;
   function randomPeril(boat) {
     let randomNb = Math.random();
-    if (randomNb < 0.02) {
+    //if (randomNb < 0.02) {
+    if (randomNb < 0.6) {
       boat.newBoat.style.transition = "all 50s";
       boat.newBoat.style.transform = `translate(${0}px, ${0}px)`;
       boat.newBoat.style.transform += "rotate(360deg)";
-      // boat.newBoat.classList.add("distress-call");
+      // boat.newBoat.classList.add("distress-call");;
 
       const timeOutSink = setTimeout(() => {
         (function () {
@@ -351,5 +347,35 @@ import { Mainboat } from "./main-boat.js";
   function countAllDeath() {
     let deathNumber = document.getElementById("death-number");
     deathNumber.innerHTML = `${deathAll} drowned`;
+  }
+
+  function endSimulation() {
+    const endText = document.createElement("div");
+    endText.className = "end-text";
+    endText.innerHTML += `<h2 id="title-end">Simulation is over</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce orci
+    lorem, fringilla interdum sapien venenatis, bibendum blandit diam.
+    Etiam nec turpis eget mi   elementum feugiat quis ut lacus. Integer
+    ultrices pharetra nisi. Praesent venenatis ex congue sapien aliquam
+    rutrum. Nullam egestas volutpat urna, ut hendrerit augue commodo eu.
+    Mauris ullamcorper hendrerit euismod. Etiam tristique justo eu
+    sollicitudin facilisis. Suspendisse quis sollicitudin mi, vitae cursus
+    diam. Etiam sollicitudin suscipit justo, id dignissim urna dignissim
+    nec. Praesent a elementum sapien</p>
+    <div id="relaunch-btn" class="btn">Relaunch simulation</div>`;
+    mutawasea.appendChild(endText);
+    restart();
+  }
+
+  function restart() {
+    let relaunch = document.getElementById("relaunch-btn");
+    relaunch.addEventListener("click", function (event) {
+      let endText = document.querySelector(".end-text");
+      endText.remove();
+      main - boat.remove();
+      deathAll = 0;
+      saveAll = 0;
+      startsGame();
+    });
   }
 })();

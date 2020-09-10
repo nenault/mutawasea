@@ -50,10 +50,6 @@ section.middle {
   grid-column: 2;
   grid-row: 1/4;
 }
-section #right {
-  grid-column: 1;
-  grid-row: 2/4;
-}
 
 .container {
   width: 50vw;
@@ -75,32 +71,45 @@ section #right {
 
 #console-log {
   width: 100%;
-  background-color: #0d355a;
   grid-column: 1/34;
   grid-row: 33;
   position: relative;
+  background: -webkit-linear-gradient(110deg, #2193b0 33%, rgba(0, 0, 0, 0) 33%),
+    -webkit-linear-gradient(110deg, #0d355a 66%, #2193b0 66%);
+  background: -o-linear-gradient(110deg, #2193b0 33%, rgba(0, 0, 0, 0) 33%),
+    -o-linear-gradient(110deg, #0d355a 66%, #2193b0 66%);
+  background: -moz-linear-gradient(110deg, #2193b0 33%, rgba(0, 0, 0, 0) 33%),
+    -moz-linear-gradient(110deg, #0d355a 66%, #2193b0 66%);
+  background: linear-gradient(110deg, #2193b0 33%, rgba(0, 0, 0, 0) 33%),
+    linear-gradient(110deg, #0d355a 66%, #2193b0 66%);
 }
 
 .console {
-  color:whitesmoke;
+  color: whitesmoke;
   font-size: 20px;
   display: flex;
   justify-content: space-around;
-  margin-top: 6px;;
+  margin-top: 6px;
+  text-shadow: 3px 4px 7px rgba(81, 67, 21, 0.8);
 }
 
 .alert {
-  background-color:thistle;
+  background-color: whitesmoke;
   font-size: 20px;
   grid-column: 1/34;
-  grid-row: 1;
+  grid-row: 1/3;
+  margin-top: 20px;
+  padding: 10px 20px 0px 20px;
+  height: 40px;
 }
 
 .alert-capacity {
-  background-color:thistle;
+  background-color: whitesmoke;
   font-size: 20px;
   grid-column: 1/34;
-  grid-row: 2;
+  grid-row: 2/4;
+  margin-top: 30px;
+  padding: 10px 20px 54px 20px;
 }
 
 .map {
@@ -113,25 +122,32 @@ section #right {
 .launch {
   color: white;
   background-color: #0d355a;
-  grid-column: 15;
+  grid-column: 14;
   grid-row: 16;
-  width: 10vw;
+  width: 200px;
   height: 8vh;
   padding: 20px;
   z-index: 1;
   text-align: center;
   cursor: pointer;
-}
-
-.btn-one {
-  color: #fff;
   transition: all 0.3s;
   position: relative;
 }
-.btn-one span {
+
+#relaunch-btn {
+  margin-top: 20px;
+  background-color: #0d355a;
+  color: white;
+  width: 204px;
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.btn span {
   transition: all 0.3s;
 }
-.btn-one::before {
+.btn::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -149,14 +165,14 @@ section #right {
   border-bottom-color: rgba(255, 255, 255, 0.5);
   transform: scale(0.1, 1);
 }
-.btn-one:hover span {
+.btn:hover span {
   letter-spacing: 2px;
 }
-.btn-one:hover::before {
+.btn:hover::before {
   opacity: 1;
   transform: scale(1, 1);
 }
-.btn-one::after {
+.btn::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -167,13 +183,9 @@ section #right {
   transition: all 0.3s;
   background-color: rgba(255, 255, 255, 0.1);
 }
-.btn-one:hover::after {
+.btn:hover::after {
   opacity: 0;
   transform: scale(0.1, 1);
-}
-
-.dashboard {
-  padding: 20px;
 }
 
 .refugee-boat {
@@ -231,6 +243,22 @@ section #right {
   background: url("./img/viking.png") center no-repeat;
 }
 
+.end-text {
+  grid-column: 2/33;
+  grid-row: 6/18;
+  background-color: white;
+  z-index: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sos {
+  width: 80px;
+  height: 80px;
+}
+
 @media (max-width: 1200px) {
   h1 {
     font-size: 60px;
@@ -255,6 +283,8 @@ section #right {
   }
   .container {
     width: 100vw;
+    grid-template-columns: repeat(32, minmax(3vw, 3vw));
+    grid-template-rows: repeat(32, minmax(3vh, 3vh));
   }
   .map {
     width: 100vw;
@@ -274,7 +304,7 @@ section #right {
     padding: 12px;
     width: 100vw;
     text-align: center;
-    background-color: #0d355a;
+    background: linear-gradient(110deg, #0d355a 63%, #2193b0 32%);
     color: white;
     margin-top: 0px;
   }
@@ -284,5 +314,47 @@ section #right {
 
   .display-mobile {
     visibility: visible;
+  }
+
+  .console {
+    font-size: 14px;
+  }
+
+  #console-log {
+    background: -webkit-linear-gradient(
+        110deg,
+        #0d355a 33%,
+        rgba(0, 0, 0, 0) 33%
+      ),
+      -webkit-linear-gradient(110deg, #ccc 66%, #2193b0 66%);
+    background: -o-linear-gradient(110deg, #0d355a 33%, rgba(0, 0, 0, 0) 33%),
+      -o-linear-gradient(110deg, #ccc 66%, #2193b0 66%);
+    background: -moz-linear-gradient(110deg, #0d355a 33%, rgba(0, 0, 0, 0) 33%),
+      -moz-linear-gradient(110deg, #ccc 66%, #2193b0 66%);
+    background: linear-gradient(110deg, #0d355a 33%, rgba(0, 0, 0, 0) 33%),
+      linear-gradient(110deg, #ccc 66%, #2193b0 66%);
+  }
+
+  .launch {
+    grid-column: 10;
+    grid-row: 29;
+    width: 160px;
+  }
+
+  .alert {
+    font-size: 16px;
+    grid-row: 3/3;
+    padding: 10px 20px 0px 10px;
+    height:60px;
+  }
+
+  .alert-capacity {
+    background-color: whitesmoke;
+    font-size: 16px;
+    grid-column: 1/34;
+    grid-row: 5/6;
+    margin-top: 30px;
+    padding: 10px 20px 54px 10px;
+    height: 80px;
   }
 }
