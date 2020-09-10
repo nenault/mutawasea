@@ -40,7 +40,7 @@ export class Refugees {
           lampedusaPort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -49,7 +49,7 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     } else if (randomDestination === 2) {
@@ -67,7 +67,7 @@ export class Refugees {
           maltaPort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -76,7 +76,7 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     } else if (randomDestination === 3) {
@@ -94,7 +94,7 @@ export class Refugees {
           pozzalloPort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -103,7 +103,7 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     } else if (randomDestination === 4) {
@@ -121,7 +121,7 @@ export class Refugees {
           messinaPort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -130,7 +130,7 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     } else if (randomDestination === 5) {
@@ -148,7 +148,7 @@ export class Refugees {
           crotonePort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -157,7 +157,7 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     } else {
@@ -175,7 +175,7 @@ export class Refugees {
           tarantoPort.getBoundingClientRect().left -
           newBoat.getBoundingClientRect().left +
           newBoat.getBoundingClientRect().width * 2;
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${calcX}px, ${0 - calcY}px)`;
       } else {
         let calcX =
@@ -184,7 +184,7 @@ export class Refugees {
           newBoat.getBoundingClientRect().width * 2;
         let subCalcX = 0 - calcX - newBoat.getBoundingClientRect().width * 4;
 
-        newBoat.style.transitionDuration = "50s";
+        newBoat.style.transitionDuration = "100S";
         newBoat.style.transform = `translate(${subCalcX}px, ${0 - calcY}px)`;
       }
     }

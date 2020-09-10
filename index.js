@@ -1,6 +1,11 @@
 import { Refugees } from "./refugees.js";
 import { Mainboat } from "./main-boat.js";
 
+
+/**
+ * IIFE function
+ * @author Nicolas Enault <nicolas.enault@gmail.com>
+ */
 (function () {
   let mutawasea = document.querySelector(".container");
   let map = document.querySelector(".map");
@@ -50,7 +55,7 @@ import { Mainboat } from "./main-boat.js";
         alertPort.innerHTML = `>>> Ports are closed to boats carrying refugees until further notice...`;
         portsArr.forEach((port) => {
           port.style.background =
-            "url('./img/refugee-boat.png') center no-repeat";
+            "url('./img/port-closed.png') center no-repeat";
         });
       } else {
         isPortsClosed = "false";
@@ -119,7 +124,7 @@ import { Mainboat } from "./main-boat.js";
   function startsGame() {
     generateMainBoat();
     const intervalRefugees = setInterval(() => {
-      if (deathAll >= 400) {
+      if (deathAll >= 750) {
         clearInterval(intervalRefugees);
         endSimulation();
       } else {
@@ -127,8 +132,6 @@ import { Mainboat } from "./main-boat.js";
       }
     }, 3000);
   }
-
-  // collisions
 
   let getBoatW,
     getBoatH,
@@ -197,7 +200,7 @@ import { Mainboat } from "./main-boat.js";
   }
 
   function boatCapacity(getBoat, refugeesBoat) {
-    //console.log(refugeesBoat.refugee.nbRefugees);
+    console.log(refugeesBoat.refugee.nbRefugees);
     //console.log(getBoat);
     //let boatArr = [...refugeesBoat.refugee.nbRefugees];
     //console.log(boatArr);
@@ -208,21 +211,16 @@ import { Mainboat } from "./main-boat.js";
     mutawasea.appendChild(alertCapacity);
     if (saveAll < 250) {
       saveRefugees(getBoat, refugeesBoat);
-      savingNumber.style.color = "white";
     } else if (saveAll > 250 && saveAll < 350) {
       saveRefugees(getBoat, refugeesBoat);
-      savingNumber.style.color = "orange";
       alertCapacity.innerHTML = `>>> Warning, you have exceeded the capacity of the boat, you can continue or go back to a safe harbor.`;
     } else {
-      savingNumber.style.color = "red";
       alertCapacity.innerHTML = `>>> There is no room at all on board, you should really find a safe harbor.`;
     }
   }
 
   function saveRefugees(a, b) {
     countSave(b.refugee.nbRefugees);
-    let savingNumber = document.getElementById("saving-number");
-    savingNumber.style.color = "white";
 
     const timeOutSave = setTimeout(() => {
       b.newBoat.remove();
@@ -323,19 +321,19 @@ import { Mainboat } from "./main-boat.js";
   function randomPeril(boat) {
     let randomNb = Math.random();
     //if (randomNb < 0.02) {
-    if (randomNb < 0.6) {
+      if (randomNb < 0.6) {
+  
       boat.newBoat.style.transition = "all 50s";
       boat.newBoat.style.transform = `translate(${0}px, ${0}px)`;
-      boat.newBoat.style.transform += "rotate(360deg)";
-      // boat.newBoat.classList.add("distress-call");;
-
+      boat.newBoat.classList.add("flicker-1");
+     
       const timeOutSink = setTimeout(() => {
         (function () {
           countDeath(boat.refugee.nbRefugees);
         })();
         boat.refugee.nbRefugees = 0;
         boat.newBoat.remove();
-      }, 5000);
+      }, 100000);
     }
   }
 
@@ -353,29 +351,9 @@ import { Mainboat } from "./main-boat.js";
     const endText = document.createElement("div");
     endText.className = "end-text";
     endText.innerHTML += `<h2 id="title-end">Simulation is over</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce orci
-    lorem, fringilla interdum sapien venenatis, bibendum blandit diam.
-    Etiam nec turpis eget mi   elementum feugiat quis ut lacus. Integer
-    ultrices pharetra nisi. Praesent venenatis ex congue sapien aliquam
-    rutrum. Nullam egestas volutpat urna, ut hendrerit augue commodo eu.
-    Mauris ullamcorper hendrerit euismod. Etiam tristique justo eu
-    sollicitudin facilisis. Suspendisse quis sollicitudin mi, vitae cursus
-    diam. Etiam sollicitudin suscipit justo, id dignissim urna dignissim
-    nec. Praesent a elementum sapien</p>
-    <div id="relaunch-btn" class="btn">Relaunch simulation</div>`;
+    <p class="endPara">750 people died. This is the number of people who have drowned in the central Mediterranean since the beginning of 2020, if only those who were trying to reach Italy are counted. Since 2014, nearly 20,000 people have died in these conditions, according to the UNHCR, throughout the Mediterranean Sea.
+    <br /><br />This is the world's most deadly migration route.<br/ ><br />You should check <a href="https://www.sosmediterranee.org/" target="_blank">SOS MEDITERRANEE's</a> website.<br />#refugeeswelcome
+    </p>`;
     mutawasea.appendChild(endText);
-    restart();
-  }
-
-  function restart() {
-    let relaunch = document.getElementById("relaunch-btn");
-    relaunch.addEventListener("click", function (event) {
-      let endText = document.querySelector(".end-text");
-      endText.remove();
-      main - boat.remove();
-      deathAll = 0;
-      saveAll = 0;
-      startsGame();
-    });
   }
 })();
