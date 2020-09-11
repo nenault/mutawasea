@@ -225,13 +225,15 @@ import { Mainboat } from "./main-boat.js";
       refugeesBoatsY = refugeesArray[i].newBoat.getBoundingClientRect().top;
 
       if (
-        getBoatX + getBoatW > refugeesBoatsX &&
-        getBoatX < refugeesBoatsX + refugeesBoatsW &&
-        getBoatY + getBoatH > refugeesBoatsY &&
-        getBoatY < refugeesBoatsY + refugeesBoatsH
+        (getBoatX + getBoatW) > refugeesBoatsX &&
+        getBoatX < (refugeesBoatsX + refugeesBoatsW) &&
+        (getBoatY + getBoatH) > refugeesBoatsY &&
+        getBoatY < (refugeesBoatsY + refugeesBoatsH)
       ) {
+        refugeesArray[i].newBoat.remove();
         boatCapacity(getBoat, refugeesArray[i]);
         refugeesArray.splice(refugeesArray[i], 1);
+        
       }
     }
     window.requestAnimationFrame(detectBoatToRefugees);
@@ -273,14 +275,11 @@ import { Mainboat } from "./main-boat.js";
   function saveRefugees(mainBoat, boat) {
     countSave(boat.refugee.nbRefugees);
 
-    boat.newBoat.remove();
-    boat.refugee.nbRefugees = 0;
-
+   
+    
     mainBoat.style.transition = "all 100s";
     mainBoat.style.transform = `translate(${0}px, ${0}px)`;
-
-    boat.newBoat.style.transition = "all 600s";
-    boat.newBoat.style.transform = `translate(${0}px, ${0}px)`;
+    
   }
 
   let saveAll = 0;
