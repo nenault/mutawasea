@@ -27,13 +27,8 @@ export class Mainboat {
    * @param xPosition - Number, X position of mouse click
    * @param yPosition - Number, Y position of mouse click
    */
-  sail(xPosition, yPosition) {
+  sail(xPosition, yPosition, isFirstclick) {
     let mainBoat = document.querySelector(".main-boat");
-
-    mainBoat.style.visibility = "hidden";
-    const timeOutSave = setTimeout(() => {
-      mainBoat.style.visibility = "visible";
-    }, 1000);
 
     if (yPosition < mainBoat.getBoundingClientRect().top) {
       mainBoat.style.transition = "all 6s";

@@ -18,7 +18,6 @@ import { Mainboat } from "./main-boat.js";
   let mutawasea = document.querySelector(".container");
   let clickZone = document.querySelector(".clickzone");
   let ports = document.getElementsByClassName("ports");
-  let consoleLog = document.getElementById("console-log");
   let isPortsClosed = "false";
   let launchSimulation = document.querySelector(".launch");
 
@@ -47,13 +46,20 @@ import { Mainboat } from "./main-boat.js";
     clickZone.style.cursor = "pointer";
 
     // Creates div that contains refugee data
-    const div = document.createElement("div");
-    div.className = "console";
-    div.innerHTML += `
+    const dataDiv = document.createElement("div");
+    dataDiv.id = "console-log";
+    mutawasea.appendChild(dataDiv);
+
+    const timeOutData = setTimeout(() => {
+      let consoleLog = document.getElementById("console-log");
+      const div = document.createElement("div");
+      div.className = "console";
+      div.innerHTML += `
     <span id="saving-number">0 on board</span>
     <span id="death-number">0 drowned</span>
     <span id="saved-number">0 rescued</span>`;
-    consoleLog.appendChild(div);
+      consoleLog.appendChild(div);
+    }, 1000);
 
     // Manages random closing or opening of ports every six seconds
     const intervalclose = setInterval(() => {
@@ -99,12 +105,18 @@ import { Mainboat } from "./main-boat.js";
     const newMainBoat = mainBoat.boatShape();
     mutawasea.appendChild(newMainBoat);
 
+    let isFirstclick = "true";
     /**
      * Detects position of the user's mouse on click and invokes function to move the boat
      * @param event - Mouse event on click
      */
     mutawasea.addEventListener("click", function (event) {
       let getBoat = document.querySelector(".main-boat");
+      // let isFirstclick = "true";
+
+      const timeOutClick = setTimeout(() => {
+        isFirstclick = "false";
+      }, 1000);
 
       var xPosition =
         event.clientX -
@@ -115,7 +127,7 @@ import { Mainboat } from "./main-boat.js";
         mutawasea.getBoundingClientRect().top -
         getBoat.clientHeight * 2;
 
-      mainBoat.sail(xPosition, yPosition);
+      mainBoat.sail(xPosition, yPosition, isFirstclick);
     });
   }
 
@@ -225,15 +237,14 @@ import { Mainboat } from "./main-boat.js";
       refugeesBoatsY = refugeesArray[i].newBoat.getBoundingClientRect().top;
 
       if (
-        (getBoatX + getBoatW) > refugeesBoatsX &&
-        getBoatX < (refugeesBoatsX + refugeesBoatsW) &&
-        (getBoatY + getBoatH) > refugeesBoatsY &&
-        getBoatY < (refugeesBoatsY + refugeesBoatsH)
+        getBoatX + getBoatW > refugeesBoatsX &&
+        getBoatX < refugeesBoatsX + refugeesBoatsW &&
+        getBoatY + getBoatH > refugeesBoatsY &&
+        getBoatY < refugeesBoatsY + refugeesBoatsH
       ) {
         refugeesArray[i].newBoat.remove();
         boatCapacity(getBoat, refugeesArray[i]);
         refugeesArray.splice(refugeesArray[i], 1);
-        
       }
     }
     window.requestAnimationFrame(detectBoatToRefugees);
@@ -245,7 +256,7 @@ import { Mainboat } from "./main-boat.js";
    * @param refugeesBoat - Object that contains  HTML element that is the refugees boat and the instance of Refugees class that contains metadatas of this boat
    */
   function boatCapacity(getBoat, refugeesBoat) {
-    console.log(refugeesBoat.refugee.nbRefugees);
+    //console.log(refugeesBoat.refugee.nbRefugees);
     // console.log(refugeesBoat);
     //let boatArr = [...refugeesBoat.refugee.nbRefugees];
     //console.log(boatArr);
@@ -275,11 +286,8 @@ import { Mainboat } from "./main-boat.js";
   function saveRefugees(mainBoat, boat) {
     countSave(boat.refugee.nbRefugees);
 
-   
-    
     mainBoat.style.transition = "all 100s";
     mainBoat.style.transform = `translate(${0}px, ${0}px)`;
-    
   }
 
   let saveAll = 0;
@@ -306,10 +314,7 @@ import { Mainboat } from "./main-boat.js";
    * @param port - One of port HTML element
    */
   function disembarkRefugees(mainBoat, port) {
-    mainBoat.style.transform = `translate(${
-      port.getBoundingClientRect().left - mutawasea.getBoundingClientRect().left
-    }px, ${port.getBoundingClientRect().top + 20}px)`;
-    mainBoat.style.transform += "rotate(180deg)";
+   
 
     validateSave();
     saveAll = 0;
